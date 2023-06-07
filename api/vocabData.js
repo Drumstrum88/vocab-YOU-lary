@@ -4,7 +4,8 @@ import client from '../utils/client';
 const endpoint = client.databaseURL;
 // Get Vocab data
 const getVocab = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/vocab.json?orderBy='uid'&equalTo=${uid}`, {
+  const encodedUid = encodeURIComponent(uid);
+  fetch(`${endpoint}/entries.json?orderBy="uid"&equalTo="${encodedUid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,8 +23,28 @@ const getVocab = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const fetchAndRenderVocabCards = () => {
-  getVocab()
+const userID = '-MiBt86VzkC-EGmJnxjm';
+getVocab(userID)
+  .then((vocabEntries) => {
+    console.warn(vocabEntries);
+
+    const vocabContainer = document.querySelector('#vocab-container');
+    vocabContainer.innerHTML = '';
+
+    vocabEntries.forEach((entryObj) => {
+      vocabContainer.innerHTML += `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">${entryObj.title}</h5>
+        <p class="card-text">${entryObj.definition}</p>
+        <button class="btn btn-danger" id="delete-vocab-btn--${entryObj.firebaseKey}">Delete</button>
+        <button class="btn btn-info" id="edit-vocab-btn--${entryObj.firebaseKey}">Edit</button>
+      </div>
+    </div>`;
+    });
+  });
+
+const fetchAndRenderVocabCards = (uid) => {
+  getVocab(uid)
     .then((vocabArray) => {
       showVocabCard(vocabArray);
     })
@@ -34,7 +55,7 @@ const fetchAndRenderVocabCards = () => {
 
 // Create Vocab data
 const createVocab = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/vocab.json`, {
+  fetch(`${endpoint}/entries.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +70,7 @@ const createVocab = (payload) => new Promise((resolve, reject) => {
 // Delete Vocab data
 
 const deleteVocab = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/vocab/${firebaseKey}.json`, {
+  fetch(`${endpoint}/entries/${firebaseKey}.json`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -61,7 +82,7 @@ const deleteVocab = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const updateVocab = (vocabObj) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/vocab/${vocabObj.firebaseKey}.json`, {
+  fetch(`${endpoint}/entries/${vocabObj.firebaseKey}.json`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

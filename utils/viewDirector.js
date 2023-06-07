@@ -14,6 +14,7 @@ const ViewDirectorBasedOnUserAuthStatus = () => {
     } else {
       // Person is NOT logged in
       clearDom();
+      clearDom('add-entry-form');
       loginButton();
     }
   });

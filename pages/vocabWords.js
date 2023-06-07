@@ -1,3 +1,4 @@
+import navBar from '../components/navbar';
 import clearDom from '../utils/clearDom';
 import renderToDom from '../utils/renderToDom';
 
@@ -21,9 +22,10 @@ const showVocabCard = (array) => {
           </div>
         </div>`;
       renderToDom('#vocab-container', domString);
+      renderToDom(navBar());
     });
   } else {
-    emptyVocabEntries();
+    renderToDom('#vocab-container', '<h1>No Vocab Entries</h1>');
   }
 };
 

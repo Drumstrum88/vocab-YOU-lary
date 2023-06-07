@@ -1,5 +1,4 @@
-import navBar from '../components/navbar';
-import clearDom from '../utils/clearDom';
+// import clearDom from '../utils/clearDom';
 import renderToDom from '../utils/renderToDom';
 
 const emptyVocabEntries = () => {
@@ -8,9 +7,11 @@ const emptyVocabEntries = () => {
 };
 
 const showVocabCard = (array) => {
-  clearDom('#vocab-container');
+  console.warn(array);
+  // clearDom('#vocab-container');
   if (array.length) {
     array.forEach((item) => {
+      console.warn(item);
       const domString = `
         <div class="card">
           <div class="card-body">
@@ -22,7 +23,6 @@ const showVocabCard = (array) => {
           </div>
         </div>`;
       renderToDom('#vocab-container', domString);
-      renderToDom(navBar());
     });
   } else {
     renderToDom('#vocab-container', '<h1>No Vocab Entries</h1>');

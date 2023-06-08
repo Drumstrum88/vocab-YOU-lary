@@ -45,8 +45,8 @@ getVocab(userID)
 
 const fetchAndRenderVocabCards = (uid) => {
   getVocab(uid)
-    .then((vocabArray) => {
-      showVocabCard(vocabArray);
+    .then((vocabEntries) => {
+      showVocabCard(vocabEntries);
     })
     .catch((error) => {
       console.error('Error fetching vocab data:', error);

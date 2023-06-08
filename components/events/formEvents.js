@@ -13,9 +13,9 @@ const formEvents = () => {
         uid: document.querySelector('#uid').value
       };
       if (payload.firebaseKey === '') {
-        createVocab(payload).then((vocabArray) => showVocabCard(vocabArray));
+        createVocab(payload).then((vocabEntries) => showVocabCard(vocabEntries));
       } else {
-        updateVocab(payload).then((vocabArray) => showVocabCard(vocabArray));
+        updateVocab(payload).then((vocabEntries) => showVocabCard(vocabEntries));
       }
     }
     if (e.target.id.includes('edit-vocab-btn')) {
@@ -26,7 +26,7 @@ const formEvents = () => {
         firebaseKey: document.querySelector('#firebaseKey').value,
         uid: document.querySelector('#uid').value
       };
-      updateVocab(payload).then((vocabArray) => showVocabCard(vocabArray));
+      updateVocab(payload).then((vocabEntries) => showVocabCard(vocabEntries));
     }
     if (e.target.id.includes('add-entry-btn')) {
       showVocabForm();

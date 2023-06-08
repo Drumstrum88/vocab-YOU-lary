@@ -3,8 +3,8 @@ import { getVocab } from '../api/vocabData';
 
 const fetchAndRenderVocabCards = () => {
   getVocab()
-    .then((vocabArray) => {
-      showVocabCard(vocabArray);
+    .then((vocabEntries) => {
+      showVocabCard(vocabEntries);
     })
     .catch((error) => {
       console.error('Error fetching vocab data:', error);

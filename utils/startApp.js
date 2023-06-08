@@ -11,6 +11,7 @@ const startApp = (user) => {
   domEvents(user);
   formEvents(user);
   navBar();
+  showVocabCard(user);
 
   getVocab(user.uid)
     .then((vocabEntries) => {
@@ -18,9 +19,11 @@ const startApp = (user) => {
     })
     .catch((error) => {
       console.error('Error fetching vocab entries:', error);
-      // showVocabCard([]);  Render the "No Vocab Entries" message in case of an error
+      showVocabCard([]);
     });
   navigationEvents(user);
 };
+
+startApp();
 
 export default startApp;

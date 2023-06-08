@@ -10,7 +10,7 @@ const domEvents = () => {
         // console.warn('CLICKED DELETE VOCAB', e.target.id);
         // console.warn(e.target.id.split('--'));
         const [, id] = e.target.id.split('--');
-        deleteVocab(id).then((vocabArray) => showVocabCard(vocabArray));
+        deleteVocab(id).then((vocabEntries) => showVocabCard(vocabEntries));
       }
     }
     if (e.target.id.includes('edit-vocab-btn')) {
